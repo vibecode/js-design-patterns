@@ -1,9 +1,9 @@
 //pros: application modules decoupling
 //cons: potentially unexpected updates and sequencing issues.
 
-//****************************
-// Stoyan Stefanov version
-//****************************
+//************************************
+// Stoyan Stefanov observer version 1
+//************************************
 
 const publisher = {
   subscribers: {
@@ -74,4 +74,5 @@ paper.daily();
 paper.daily();
 paper.daily();
 paper.monthly();
+
 
