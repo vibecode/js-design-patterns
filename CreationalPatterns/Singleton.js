@@ -2,7 +2,7 @@
 const Singleton = (function () {
   let instance;
 
-  privateVar = 'My own private Idaho';
+  let privateVar = 'My own private Idaho';
 
   function showPrivate() {
     console.log(privateVar);
@@ -44,15 +44,14 @@ class SingletonES6 {
   }
 }
 
-// const single1 = new SingletonES6();
-// const single2 = new SingletonES6();
-console.log(SingletonES6);
-// console.log(single1 === single2);
+const single1 = new SingletonES6();
+const single2 = new SingletonES6();
+console.log(single1 === single2);
 
 //or
 // class SingletonModule {
 //   constructor() {
-//     this._var = 'My own private Idaho';
+//     this.state = 'My own private Idaho';
 //   }
 // }
 //
