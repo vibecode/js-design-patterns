@@ -44,15 +44,16 @@ class SingletonES6 {
   }
 }
 
-const single1 = new SingletonES6();
-const single2 = new SingletonES6();
-console.log(single1 === single2);
+// const single1 = new SingletonES6();
+// const single2 = new SingletonES6();
+console.log(SingletonES6);
+// console.log(single1 === single2);
 
 //or
-class SingletonModule {
-  constructor() {
-    this._var = 'My own private Idaho';
-  }
-}
-
-export default new SingletonModule();
+// class SingletonModule {
+//   constructor() {
+//     this._var = 'My own private Idaho';
+//   }
+// }
+//
+// export default new SingletonModule();
