@@ -49,8 +49,9 @@ console.log(mover instanceof Truck); // => true
 // builds Trucks
 
 function TruckFactory() {
+
 };
-TruckFactory.prototype = new VehicleFactory();
+TruckFactory.prototype = Object.create(VehicleFactory.prototype);
 TruckFactory.prototype.vehicleClass = Truck;
 
 const truckFactory = new TruckFactory();
