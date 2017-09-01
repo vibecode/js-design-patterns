@@ -1,4 +1,5 @@
 //The decorator pattern is used to wrap and augment an existing class.
+//It extends (decorates) an object’s behavior dynamically.
 //Using a decorator pattern is an alternative to subclassing an existing component.
 
 class MacBook {
@@ -47,3 +48,29 @@ Insurance(macbook);
 
 console.log(macbook.getCost());
 console.log(macbook.getScreenSize());
+
+/*=================== variation  ====================*/
+
+class BasicArmor {
+  calcDamage(hit) {
+    return hit.strength;
+  }
+}
+
+//decorator
+class ChainMail {
+  constructor(armor) {
+    this.decoratedArmor = armor;
+  }
+
+  calcDamage(hit) {
+    hit.strength = hit.strength * .8;
+    return this.decoratedArmor.calcDamage(hit);
+  }
+}
+
+const armor = new BasicArmor();
+const reinforcedArmor = new ChainMail(armor);
+
+console.log(armor.calcDamage({strength: 1}));
+console.log(reinforcedArmor.calcDamage({strength: 1}));
