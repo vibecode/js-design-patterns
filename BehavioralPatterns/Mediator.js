@@ -11,67 +11,50 @@
 //When modules communicate back and forth using a mediator pattern, it tends to become cumbersome and usually results in a clear performance hit. It's best when the mediator is only used to coordinate actions across multiple features and not for communication within the individual features themselves; keep the airways clean! (via https://carldanley.com/js-mediator-pattern/)
 
 class Lord {
-  constructor(greatLord) {
-    this.greatLord = greatLord;
+  constructor(name) {
+    this.name = name;
+    this.greatLord = null;
   }
 
   receiveMessage(message) {
-    console.log(message);
+    console.log(`Lord ${this.name} received: "${message}"`);
   }
 
-  sendMessage(to, message) {
-    this.greatLord.routeMessage(to, message);
+  sendMessage(message, to) {
+    this.greatLord.routeMessage(message, to);
   }
 }
 
 class HouseStark {
   constructor() {
-    this.houses = {
-      karstark: new Lord(this),
-      bolton: new Lord(this),
-      frey: new Lord(this)
-    }
+    this.houses = {};
   }
 
-  routeMessage(to, message) {
-    for (let name in this.houses) {
-      if (name === to) {
+  addLord(lord) {
+    this.houses[lord.name] = lord;
+    lord.greatLord = this;
+  }
+
+  routeMessage(message, to) {
+    if (to === undefined) {
+      for (let name in this.houses) {
         this.houses[name].receiveMessage(message);
       }
+    } else if (to in this.houses) {
+      this.houses[to].receiveMessage(message);
     }
   }
 }
 
 const houseStark = new HouseStark();
-houseStark.houses.bolton.sendMessage('karstark', 'ty pidor');
 
-//https://stackoverflow.com/questions/25417547/observer-pattern-vs-mediator-pattern
-//photo upload
+const karstark = new Lord('Karstark');
+const mormont = new Lord('Mormont');
+const bolton = new Lord('Bolton');
 
-class UploadMediator {
-  constructor() {
-    this.actors = {};
-  }
+houseStark.addLord(karstark);
+houseStark.addLord(mormont);
+houseStark.addLord(bolton);
 
-  registerActor(name, obj) {
-    this.actors[name] = obj;
-  }
-
-  launch() {
-    this.actors['chooser'].show();
-    this.actors['preview'].hide();
-    this.actors['progress'].hide();
-  }
-
-  selected(img) {
-    this.actors['preview'].show(img);
-  }
-
-  uploading(progressNotifier) {
-    this.actors['progress'].show(progressNotifier)
-  }
-
-  uploaded(thumbUrl) {
-    //show thumbUrl in the image list
-  }
-}
+bolton.sendMessage('I hate u all');
+mormont.sendMessage('U r a dead man', 'Bolton');
