@@ -30,7 +30,9 @@ function Truck({ enclosedCargo, length }) {
 }
 
 function VehicleFactory() {
-};
+
+}
+
 VehicleFactory.prototype.vehicleClass = Car;
 VehicleFactory.prototype.getVehicle = function (opt) {
   return new this.vehicleClass(opt);
@@ -50,7 +52,8 @@ console.log(mover instanceof Truck); // => true
 
 function TruckFactory() {
 
-};
+}
+
 TruckFactory.prototype = Object.create(VehicleFactory.prototype);
 TruckFactory.prototype.vehicleClass = Truck;
 
